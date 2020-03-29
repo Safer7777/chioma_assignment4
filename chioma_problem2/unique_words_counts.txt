@@ -1,0 +1,5 @@
+Hunter	-- 2
+Warrior	-- 3
+Priest	-- 1
+Mage	-- 4
+Rogue	-- 1

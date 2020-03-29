@@ -1,0 +1,91 @@
+package chioma_problem2;
+
+import java.io.File;
+import java.util.Formatter;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+
+//this program will take input from a file and keep a tally of each occurrence
+public class DuplicateCounter {
+	
+	//we set up a scanner for input
+	public Scanner readFile;
+	
+	//map function
+	private Map<String, Integer> totalOccurence = new HashMap<String, Integer>();
+
+	//this will print onto the output file
+	public void write(String uniquewords)
+	{
+		//this will begin to run
+		try
+		{
+			//we have a scanner function
+			Set<String> writeUserWord = totalOccurence.keySet();
+			
+			//we have a format function
+			Formatter printOut = new Formatter(new File(uniquewords));
+			
+			//we used a enhanced for loop to simplify the code
+			for(String string : writeUserWord)
+			{
+				
+				printOut.format("%s\t-- %d%n", string, totalOccurence.get(string));
+			}
+			
+			//we then need to close out the resources used in the program.
+			printOut.close();
+			printOut.flush(); 
+			
+		//we have a catch in place for any issues
+		}
+		catch(FileNotFoundException e)
+		{
+			//system print out if any error occurs
+			System.out.println("Unfourtantly an issue occured with the creation of the file!");
+			System.out.println(e);
+		}	
+	}
+	
+		//this will receive input from the file and display how many times each word occurred
+		public void count(String problem2)
+		{
+			//this will begin to run
+			try
+			{
+				//we create a scanner for input
+				Scanner readUserFile = new Scanner(new File(problem2));
+				
+				//a while function that will run as long as the text has more input
+				while(readUserFile.hasNext())
+				{
+					String nextUserWord = readUserFile.next();
+					
+					if  (totalOccurence.containsKey(nextUserWord))
+						
+					{
+						int occurence = totalOccurence.get(nextUserWord);
+						totalOccurence.put(nextUserWord, occurence + 1);					
+					}
+					
+					else totalOccurence.put(nextUserWord, 1);
+					
+					}
+
+				//free up used resources
+				readUserFile.close();
+			
+			//we have a catch in place for any issues	
+			}
+			catch(IOException e)
+			{
+				//system print out if any error occurs
+				System.out.println("Unfourtantly an issue occured when opening the file!");
+				System.out.println(e);
+			}	
+		}
+}

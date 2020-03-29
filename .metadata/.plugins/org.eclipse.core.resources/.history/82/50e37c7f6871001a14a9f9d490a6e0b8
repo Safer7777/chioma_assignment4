@@ -1,0 +1,21 @@
+package chioma_problem1;
+
+/*
+ * Problem one will have us make a program that will read in a text file
+ * then it will remove all duplicate words and print all words without
+ * duplicates into another text file
+ */
+
+public class Application {
+
+	public static void main(String[] args) {
+		
+		//we create a new d
+		DuplicateRemover duplicateRemover = new DuplicateRemover();
+
+        duplicateRemover.remove("problem1.txt");
+        duplicateRemover.write("unique_words.txt");
+
+	}
+
+}

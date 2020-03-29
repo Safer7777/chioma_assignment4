@@ -1,0 +1,62 @@
+package chioma_problem1;
+
+//the needed libraries for the program
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashSet;
+
+//this class contains the two 
+public class DuplicateRemover {
+
+    private Set<String> uniqueUserWords = new HashSet<>();
+    private Scanner readUserFile;
+
+public void write(String outputUserFile) {
+    	
+        try {
+        	
+        	//create a new PrintWriter that uses the outputFile
+            PrintWriter printOut = new PrintWriter(new File(outputUserFile));
+
+            //we used a enhanced for loop to simplify the code 
+            for(String string : uniqueUserWords)
+            {
+                printOut.print(string + "\n\n");
+            }
+
+            
+            //we then need to close out the resources used in the program.
+            printOut.flush();
+            printOut.close();
+        }
+        
+        //we have a catch in place
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Unfourtantly an issue occured with the creation of the file!");         
+        }
+    }
+    
+    //we use remove to take out all the repeating words
+    public void remove(String dataFile) {
+    	
+    	
+        try {
+            readUserFile = new Scanner(new File(dataFile));
+
+            while(readUserFile.hasNext()) {
+            	
+            	uniqueUserWords.add(readUserFile.next());
+            	
+            }
+        } 
+        	catch(IOException e)  
+        {
+            System.out.println("Unfourtantly an issue occured when opening the file!");
+        }
+    }   
+}

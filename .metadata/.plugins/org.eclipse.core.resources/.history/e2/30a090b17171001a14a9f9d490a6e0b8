@@ -1,0 +1,86 @@
+package chioma_problem2;
+
+import java.io.File;
+import java.util.Formatter;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+
+//this program will take input from a file and keep a tally of each occurrence
+public class DuplicateCounter {
+	
+	//map function
+	private Map<String, Integer> wordCounter = new HashMap<String, Integer>();
+	
+	//we set up a scanner for input
+	public Scanner readFile;
+
+	//this will print onto the output file
+	public void write(String outputFile)
+	{
+		//this will begin to run
+		try
+		{
+			//we have a format function
+			Formatter printOut = new Formatter(new File(outputFile));
+			
+			//we have a scan function
+			Set<String> writeWord = wordCounter.keySet();
+			
+			//we used a enhanced for loop to simplify the code
+			for(String string : writeWord)
+			{
+				printOut.format("%s\t\t%d%n", string, wordCounter.get(string));
+			}
+			
+			// Closes Formatter to avoid leaks
+			printOut.close();
+			
+		//we have a catch in place for any issues
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("An issue occured while opening/creating the file!");
+			System.out.println(e);
+		}	
+	}
+	
+	// Function remove cleans up any all all resources allocated
+		// during method execution
+		// Reads file problem2.txt
+		public void count(String dataFile)
+		{
+			//this will begin to run
+			try
+			{
+				// Scanner function
+				Scanner readFile = new Scanner(new File(dataFile));
+				
+				//a while function that will run as long as the text has more input
+				while(readFile.hasNext())
+				{
+					String nextWord = readFile.next().toLowerCase();
+					
+					if(wordCounter.containsKey(nextWord))
+					{
+						int number = wordCounter.get(nextWord);
+						wordCounter.put(nextWord, number + 1);
+					}else wordCounter.put(nextWord, 1);
+					
+				}
+
+				//free up used resources
+				readFile.close();
+			
+			// catch function checks to see if an error occurs when opening users file]
+			// prints out friendly error message to users screen	
+			}catch(IOException e)
+			{
+				System.out.println("An issue occured while opening the file!");
+				System.out.println(e);
+			}	
+		}
+}
